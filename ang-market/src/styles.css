@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Open_sans'; 
+    src: url(assets\font\Open_Sans\OpenSans-Bold.ttf) format("trueType");
+}
+h1
+{
+    font-family: 'Open_sans';
+}

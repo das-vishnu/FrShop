@@ -1,0 +1,14 @@
+<div class="col-md-12">
+    <div class="input-group sticky-top ">
+        <input type="text" #searchkey 
+        (keyup.enter)="searchname(searchkey.value)"
+        class="col-md-2 fixed " placeholder="Search">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit"
+            (click)="searchname(searchkey.value)"
+            >Find</button>
+            <!-- #srachname is ref.id  -->
+            <!-- keyup.enter is for search work when enter -->
+        </span>
+    </div>
+</div>
