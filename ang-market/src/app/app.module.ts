@@ -9,19 +9,23 @@ import { HttpClientModule} from '@angular/common/http'
 import { ProductService } from './services/product.service';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { SearchComponent } from './components/search/search.component';
-import { ProdDetailsComponent } from './components/prod-details/prod-details.component'
+import { ProdDetailsComponent } from './components/prod-details/prod-details.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
     ProductlistComponent,
     PagenotfoundComponent,
     SearchComponent,
-    ProdDetailsComponent
+    ProdDetailsComponent,
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
+   
   ],
   providers: [
     ProductService

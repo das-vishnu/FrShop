@@ -14,7 +14,7 @@
 
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
          
-          <div class="col mb-5"  *ngFor="let x of product">
+          <div class="col mb-5"  *ngFor="let x of product| paginate: { itemsPerPage: 8, currentPage: p} ">
               <div class="card h-100">
                   <!-- Product image-->
                   <img class="card-img-top img-responsive " [src]="x.img" height="200px" alt="..." />
@@ -35,9 +35,16 @@
                       <div class="text-center "><a class=" btn btn-outline-dark mt-auto" href="#">  Add to Cart</a></div>
                   </div>
               </div>
+              
           </div>
+          
           <div *ngIf="product?.length==0" class="alert">The Product is not available</div>
+          
                      </div>
+                     <!-- used to impliment page like option. first part is above in *ngFor, module called in app.module  -->
+                     <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+
+
   </div>
 </section>
 

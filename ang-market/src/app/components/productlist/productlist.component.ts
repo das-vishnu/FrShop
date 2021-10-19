@@ -12,8 +12,11 @@ export class ProductlistComponent implements OnInit {
   
   product!:Product[];
   chk_key!:boolean;
+
+
+  p:number=1;
+  t:any=21;
  
-  
 
   constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute) {
 
