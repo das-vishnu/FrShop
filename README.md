@@ -1,2 +1,4 @@
 # FrShop
-angular
+model online shop
+
+angular+spring boot+ mysql
