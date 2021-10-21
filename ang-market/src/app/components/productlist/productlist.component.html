@@ -14,7 +14,8 @@
 
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
          
-          <div class="col mb-5"  *ngFor="let x of product| paginate: { itemsPerPage: 8, currentPage: p} ">
+          <div class="col mb-5"  *ngFor="let x of product">
+            <!-- | paginate: { itemsPerPage: 8, currentPage: p, totalItems:22}  -->
               <div class="card h-100">
                   <!-- Product image-->
                   <img class="card-img-top img-responsive " [src]="x.img" height="200px" alt="..." />
@@ -42,8 +43,13 @@
           
                      </div>
                      <!-- used to impliment page like option. first part is above in *ngFor, module called in app.module  -->
-                     <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
-
+                     <!-- <pagination-controls  [maxSize]="3" class="text-center" (pageChange)= "listProduct($event)"></pagination-controls> -->
+                     <ngb-pagination
+                    [(page)]="currentPage"
+                    [pageSize]="pageSize"
+                     [collectionSize]="totalRecords"
+                     (pageChange)="listProduct()"
+                     ></ngb-pagination>
 
   </div>
 </section>

@@ -13,11 +13,17 @@ export class ProductService {
   //?size=100 : to display max 100 itm else 0nly 20 
   constructor(private _http:HttpClient) { }
 
-  getData(): Observable<Product[]>{
-    const Url= `${this._Url}?size=100`;
-    return this._http.get<GetdataResponse>(Url)
-    .pipe(map(response => response._embedded.product))
-  }
+  //  getData(pageSize:number,page:number): Observable<Product[]>{
+  //   const Url= `${this._Url}?page=${page}&size=${pageSize}`;
+  //   //  const Url= `${this._Url}?size=100`;
+  //    return this._http.get<GetdataResponse>(Url)
+  //    .pipe(map(response => response._embedded.product))
+  //  }
+
+    getData(page:number,pageSize:number):Observable<GetdataResponse>{
+      const Url= `${this._Url}?page=${page}&size=${pageSize}`;
+      return this._http.get<GetdataResponse>(Url);
+    }
 
   searchname(keyword:string): Observable<Product[]>{
     const searchUrl= `${this._Url}/search/productname?name=${keyword}`;
@@ -33,6 +39,14 @@ export class ProductService {
 interface GetdataResponse{
   _embedded:{
     product: Product[];
+  }
+
+  page:{
+
+    size:number,
+    totalElements:number,//total number of record in db
+    TotalPages:number,
+    number:number
   }
 
 }

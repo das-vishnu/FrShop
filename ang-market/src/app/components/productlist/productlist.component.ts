@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/commom/product';
 import { ProductService } from 'src/app/services/product.service';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationControlsComponent } from 'ngx-pagination';
 @Component({
   selector: 'app-productlist',
   templateUrl: './productlist.component.html',
@@ -10,16 +11,22 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductlistComponent implements OnInit {
   
-  product!:Product[];
-  chk_key!:boolean;
+  product:Product[]=[];
+  chk_key:boolean=false;
 
+//front side pageing
+  // p:number=0;
 
-  p:number=1;
-  t:any=21;
+  // pageSize=8;
  
+  //server side paging
+
+  currentPage:number=1; //in ng start at 1 and in spring it is 0
+  pageSize:number=8;
+  totalRecords:number=0;
 
   constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute) {
-
+        
    }
 
   ngOnInit(): void {
@@ -38,14 +45,26 @@ export class ProductlistComponent implements OnInit {
    }
   }
 
-  productHandle(){
-    this._productservice.getData().subscribe(
-      data => this.product=data);
-  }
+  // productHandle(page:any){
+  //   this._productservice.getData(this.pageSize,page).subscribe(
+  //     data => {this.product=data; console.log(data.length)});
+  // }
+
+   productHandle(){
+     this._productservice.getData(this.currentPage-1,this.pageSize).subscribe(
+       data => {
+        this.product= data._embedded.product;
+        this.currentPage=data.page.number +1;//page number
+        this.totalRecords=data.page.totalElements;
+       this.pageSize=data.page.size;
+       console.log(data);
+       });
+   }
   searchHandle(){
 
      
     const key:any=this._activatedRoute.snapshot.paramMap.get('keyword');
     this._productservice.searchname(key).subscribe(data =>this.product=data)
   }
+
 }

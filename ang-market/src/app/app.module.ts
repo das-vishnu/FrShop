@@ -11,20 +11,24 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { SearchComponent } from './components/search/search.component';
 import { ProdDetailsComponent } from './components/prod-details/prod-details.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductlistComponent,
     PagenotfoundComponent,
     SearchComponent,
-    ProdDetailsComponent,
+    ProdDetailsComponent
+    
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule
    
   ],
   providers: [
