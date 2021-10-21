@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/commom/product';
 import { ProductService } from 'src/app/services/product.service';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { PaginationControlsComponent } from 'ngx-pagination';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-productlist',
   templateUrl: './productlist.component.html',
@@ -25,8 +25,8 @@ export class ProductlistComponent implements OnInit {
   pageSize:number=8;
   totalRecords:number=0;
 
-  constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute) {
-        
+  constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute, private _ngbConfig:NgbPaginationConfig) {
+        _ngbConfig.maxSize=3;
    }
 
   ngOnInit(): void {
@@ -51,20 +51,24 @@ export class ProductlistComponent implements OnInit {
   // }
 
    productHandle(){
-     this._productservice.getData(this.currentPage-1,this.pageSize).subscribe(
-       data => {
-        this.product= data._embedded.product;
-        this.currentPage=data.page.number +1;//page number
-        this.totalRecords=data.page.totalElements;
-       this.pageSize=data.page.size;
-       console.log(data);
-       });
+     this._productservice.getData(this.currentPage-1,this.pageSize).subscribe(this.pagin()
+       );
    }
   searchHandle(){
 
      
     const key:any=this._activatedRoute.snapshot.paramMap.get('keyword');
-    this._productservice.searchname(key).subscribe(data =>this.product=data)
+    this._productservice.searchname(key,this.currentPage-1,this.pageSize).subscribe(this.pagin())
+  }
+
+  pagin(){
+    return (data: { _embedded: { product: Product[]; }; page: { number: number; totalElements: number; size: number; }; }) => {
+      this.product= data._embedded.product;
+      this.currentPage=data.page.number +1;//page number
+      this.totalRecords=data.page.totalElements;
+     this.pageSize=data.page.size;
+     console.log(data);
+     }
   }
 
 }

@@ -36,20 +36,24 @@
                       <div class="text-center "><a class=" btn btn-outline-dark mt-auto" href="#">  Add to Cart</a></div>
                   </div>
               </div>
-              
+             
           </div>
+         
           
           <div *ngIf="product?.length==0" class="alert">The Product is not available</div>
           
                      </div>
                      <!-- used to impliment page like option. first part is above in *ngFor, module called in app.module  -->
                      <!-- <pagination-controls  [maxSize]="3" class="text-center" (pageChange)= "listProduct($event)"></pagination-controls> -->
-                     <ngb-pagination
-                    [(page)]="currentPage"
-                    [pageSize]="pageSize"
-                     [collectionSize]="totalRecords"
-                     (pageChange)="listProduct()"
-                     ></ngb-pagination>
+                   
+                     <ngb-pagination *ngIf="product?.length!=0" class="d-flex justify-content-center" [boundaryLinks]="true" 
+                     [(page)]="currentPage"
+                     [pageSize]="pageSize"
+                      [collectionSize]="totalRecords"
+                      (pageChange)="listProduct()"
+                      ></ngb-pagination>
+                     
+                    
 
   </div>
 </section>

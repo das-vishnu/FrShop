@@ -25,11 +25,16 @@ export class ProductService {
       return this._http.get<GetdataResponse>(Url);
     }
 
-  searchname(keyword:string): Observable<Product[]>{
-    const searchUrl= `${this._Url}/search/productname?name=${keyword}`;
-    return this._http.get<GetdataResponse>(searchUrl)
-    .pipe(map(response => response._embedded.product));
-  }
+    searchname(keyword:string,page:number,pageSize:number): Observable<GetdataResponse>{
+      const searchUrl= `${this._Url}/search/productname?name=${keyword}&page=${page}&size=${pageSize}`;
+      return this._http.get<GetdataResponse>(searchUrl);
+    }
+
+  // searchname(keyword:string): Observable<Product[]>{
+  //   const searchUrl= `${this._Url}/search/productname?name=${keyword}`;
+  //   return this._http.get<GetdataResponse>(searchUrl)
+  //   .pipe(map(response => response._embedded.product));
+  // }
   getDetail(PId:number): Observable<Product>{
     const deatailUrl=`${this._Url}/${PId}`;
     return this._http.get<Product>(deatailUrl);
