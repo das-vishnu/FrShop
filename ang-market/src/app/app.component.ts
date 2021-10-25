@@ -7,5 +7,6 @@ import { Product } from './commom/product';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  [x: string]: any;
 
 }
