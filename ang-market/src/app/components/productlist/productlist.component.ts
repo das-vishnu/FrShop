@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/commom/product';
 import { ProductService } from 'src/app/services/product.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { CartService } from 'src/app/services/cart.service';
+import { CartItem } from 'src/app/commom/cart-item';
 
 @Component({
   selector: 'app-productlist',
@@ -25,7 +27,7 @@ export class ProductlistComponent implements OnInit {
   pageSize:number=8;
   totalRecords:number=0;
 
-  constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute, private _ngbConfig:NgbPaginationConfig) {
+  constructor(private _productservice: ProductService, private _activatedRoute:ActivatedRoute, private _ngbConfig:NgbPaginationConfig, private _cartService:CartService) {
         _ngbConfig.maxSize=3;
    }
 
@@ -72,6 +74,8 @@ export class ProductlistComponent implements OnInit {
   }
 
     addToCart(x:Product){
-      console.log(`${x.name}`)
+      console.log(`${x.name}`);
+      const cartItem =new CartItem(x);
+      this._cartService.addToCart(cartItem);
     }
 }

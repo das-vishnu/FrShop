@@ -13,6 +13,8 @@ import { ProdDetailsComponent } from './components/prod-details/prod-details.com
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartComponent } from './components/cart/cart.component';
+import { CartbuttonComponent } from './components/cartbutton/cartbutton.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { CartComponent } from './components/cart/cart.component';
     PagenotfoundComponent,
     SearchComponent,
     ProdDetailsComponent,
-    CartComponent
+    CartComponent,
+    CartbuttonComponent
     
    
   ],
@@ -30,7 +33,8 @@ import { CartComponent } from './components/cart/cart.component';
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    FormsModule
    
   ],
   providers: [
