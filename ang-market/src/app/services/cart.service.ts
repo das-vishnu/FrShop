@@ -9,6 +9,7 @@ export class CartService {
 
   cartItems:CartItem[]=[];
   P:number=0;
+  totalItem: Subject<number> =new Subject<number>();
  
   totalPrice: Subject<number> =new Subject<number>();
 
@@ -18,6 +19,7 @@ export class CartService {
   addToCart(CartItem:CartItem){
     let InCart:boolean =false;
     let InCartItem: CartItem;
+   
     if(this.cartItems.length>0){
       InCartItem=this.cartItems.find(tempCartItem=>tempCartItem.id===CartItem.id) as CartItem;
       
@@ -30,6 +32,7 @@ export class CartService {
    }
    else{
      this.cartItems.push(CartItem);
+    
      this.calculateItemPrice();
    }
 
@@ -37,16 +40,33 @@ export class CartService {
 
   calculateItemPrice(){
     let totalItemvalue:number=0;
-    
+    let Itemcount: number=0;
 
     for(let currentcartItem of this.cartItems){
       totalItemvalue += currentcartItem.quantity*currentcartItem.unitPrice;
+      Itemcount+=currentcartItem.count;
 
     }
     console.log(`total item value = ${totalItemvalue}`);
     this.P=totalItemvalue;
     this.totalPrice.next(totalItemvalue);
-   
+
+    
+    this.totalItem.next(Itemcount);
+    console.log(`total item value = ${Itemcount}`);
+  }
+  remove(cartItem:CartItem){
+    const itemIndex = this.cartItems
+                          .findIndex(
+                            tempCartItem => tempCartItem.id === cartItem.id
+                          );
+
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
+      this.calculateItemPrice();
+    }
+    
+    
   }
   
 }

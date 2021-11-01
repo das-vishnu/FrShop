@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-cartbutton',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartbuttonComponent implements OnInit {
 
-  constructor() { }
+  totalItem:number=0;
+
+
+  constructor( private _cartService:CartService) { }
 
   ngOnInit(): void {
+    this.count();
+  }
+  count(){
+    this._cartService.totalItem.subscribe(data => this.totalItem=data);
   }
 
 }

@@ -34,6 +34,9 @@ export class CartComponent implements OnInit {
       this.T=this.T+(x.unitPrice*x.quantity)
     }
   }
+  remove(cartItem:CartItem){
+    this._cartService.remove(cartItem);
+  }
 
 
 }

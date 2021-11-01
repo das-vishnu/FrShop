@@ -1,4 +1,4 @@
-
+<div *ngIf ="cartItem.length>0">
 <div class=" x1 table ">
     <thead style="text-align: center;">
         <tr>
@@ -10,13 +10,21 @@
     </thead>
     <tbody style="text-align: center;">
         <tr *ngFor ="let x of cartItem">
-            <td>{{x.name}}</td>
+            <td>{{x.name}} 
+               
+            </td>
             <td>{{x.unitPrice| currency: 'INR'}}</td>
             <td>
                 <input type="text" [(ngModel)]="x.quantity" size="3" maxlength="1" value="1" style="text-align: right;">
                 
             </td>
-            <td>{{x.quantity*x.unitPrice| currency: 'INR'}}</td>
+            <td>{{x.quantity*x.unitPrice| currency: 'INR'}}
+
+                
+            </td>
+            <td> <span (click)="remove(x)" class="float-right text-danger xpointer">
+                <i class="fas fa-trash-alt"></i>
+            </span></td>
         </tr>
     </tbody>
     <tfoot style="text-align: right;"> 
@@ -30,3 +38,7 @@
     </tfoot>
 </div>
 <div style="margin-bottom: 50%;"></div>
+</div>
+<div *ngIf="cartItem.length==0" class="alert alert-warning x " role="alert">
+    your cart is empty
+</div>
