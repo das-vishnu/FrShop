@@ -29,7 +29,8 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css"
             ],
             "scripts": [
               "src/serh.js",
@@ -37,7 +38,8 @@
     "node_modules/popper.js/dist/umd/popper.min.js",
     "node_modules/@fortawesome/fontawesome-free/js/all.min.js",
     "node_modules/@fortawesome/fontawesome-free/js/solid.js",
-    "node_modules/bootstrap/dist/js/bootstrap.min.js"
+    "node_modules/bootstrap/dist/js/bootstrap.min.js",
+    "node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.entry.js"
             ]
           },
           "configurations": {

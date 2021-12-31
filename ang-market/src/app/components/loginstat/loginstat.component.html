@@ -1,0 +1,27 @@
+
+<div>
+    <div *ngIf ="isAuthenticated && userFullname" class="navbar-brand txt ">
+        Welcome back {{userFullname}}!
+        
+    </div>
+
+    <button *ngIf="!isAuthenticated"  class="btn btn-outline-light" routerLink="/login">Login</button>
+    <button *ngIf="isAuthenticated" (click)="logout()" class="btn btn-outline-light">Logout</button>
+    <button *ngIf="isAuthenticated && userFullname=='Vishnudas p'" routerLink="/admin" class="btn btn-outline-light">Add Product</button>
+     
+     <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+    
+</div>
+
+ <!-- 
+
+
+<div class="login-status-header">
+    <div *ngIf ="isAuthenticated && userFullname" class="login-sts-user-info">
+        Welcome back {{userFullname}}!
+    </div>
+    <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Login</button>
+    <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn" ></button>
+</div>
+
+  -->

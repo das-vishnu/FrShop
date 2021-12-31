@@ -1,4 +1,6 @@
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { OktaAuthService } from '@okta/okta-angular';
 import { Subject } from 'rxjs';
 import { CartItem } from '../commom/cart-item';
 
@@ -9,12 +11,39 @@ export class CartService {
 
   cartItems:CartItem[]=[];
   P:number=0;
+  isAuthenticated:boolean=false;
+  userName:string='x';
   totalItem: Subject<number> =new Subject<number>();
  
   totalPrice: Subject<number> =new Subject<number>();
 
+//storage:Storage=sessionStorage; //cach from browser
+storage:Storage=localStorage;
 
-  constructor() { }
+
+  constructor(private _oktaauthsrvice:OktaAuthService) { 
+    //data from storage to avid refresh issue
+    
+    this.chkUser();
+     let data = JSON.parse( this.storage.getItem('cItem')! );//cItem key
+
+     if(data!=null){
+        this.cartItems = data;
+      
+       this.calculateItemPrice(); /////<-----new 
+     }
+
+  }
+
+// auth
+chkUser(){
+  this._oktaauthsrvice.$authenticationState.subscribe(
+    (result) => {
+      this.isAuthenticated=result;})
+      return 0;
+     
+}
+
 // add tothe cart
   addToCart(CartItem:CartItem){
     let InCart:boolean =false;
@@ -38,6 +67,9 @@ export class CartService {
 
   }
 
+//for storage
+
+
   calculateItemPrice(){
     let totalItemvalue:number=0;
     let Itemcount: number=0;
@@ -54,7 +86,13 @@ export class CartService {
     
     this.totalItem.next(Itemcount);
     console.log(`total item value = ${Itemcount}`);
+    this.persistCartitem(); 
   }
+
+  persistCartitem(){
+    this.storage.setItem('cItem',JSON.stringify(this.cartItems)); //api work for string so stringfy the value
+  }
+
   remove(cartItem:CartItem){
     const itemIndex = this.cartItems
                           .findIndex(
